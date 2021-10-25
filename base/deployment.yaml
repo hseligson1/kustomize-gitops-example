@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: the-deployment
+ labels:
+   deployment: demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        deployment: demo
+    spec:
+      containers:
+      - name: the-container
+        image: annabaker/kustomize-demo-app:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MY_MYSQL_DB
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: mysqlDB
