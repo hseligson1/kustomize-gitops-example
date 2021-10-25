@@ -14,9 +14,9 @@ steps:
     type: git-clone
     stage: clone
     arguments:
-      repo: https://github.com/codefresh-contrib/kustomize-sample-app.git
+      repo: https://github.com/hseligson1/kustomize-gitops-example.git #will update this with the codefreshcontrib repo url#
       git: github
-      revision: master
+      revision: main
 
   deploy:
     title: Deploying to Production using Kustomize...
@@ -26,5 +26,6 @@ steps:
     arguments:
       image: codefresh/kubectl:1.14.9
       commands:
-        - kubectl config use-context anna-sandbox@codefresh-support
+        - kubectl config use-context hannah-demo-cluster
         - kubectl apply -k overlays/production
+	

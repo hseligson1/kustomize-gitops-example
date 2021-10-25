@@ -4,6 +4,7 @@
 This is a sample web application including a kustomization.yaml file, using Kustomize. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
 
 ## Prerequisites
+
 - Access to a Kubernetes cluster
 - Install [Kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)
 - Install and configure [Argo CD's CLI and server component](https://argo-cd.readthedocs.io/en/stable/). Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
