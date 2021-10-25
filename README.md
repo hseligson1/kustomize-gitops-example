@@ -1,22 +1,17 @@
 ![kustomize plus Codefresh](kustomize-and-codefresh.png)
-# Deploy to Kubernetes with Kustomize
+# Applied GitOps with ArgoCD and Kustomize
 
-This is a sample web application that uses Kustomize to deploy to different environments (production and staging).
+This is a sample web application including a kustomization.yaml file, using Kustomize. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
 
-## Deploy Locally
+## Prerequisites
+- Access to a Kubernetes cluster
+- Install [Kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)
+- Install and configure [Argo CD's CLI and server component](https://argo-cd.readthedocs.io/en/stable/). Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
 
-To deploy locally (with kubectl 1.14+), run the following:
+## Deploy with Kustomize
 
-`kubectl apply -k overlays/staging`
+We will install and deploy this application using Kustomize. This kustomization.yaml file already exists within this application, so we don't need to create or add this YAML file. Start by cloning the repository to your local environment.
 
-`kubectl apply -k overlays/production`
+`git clone https://github.com/codefresh-contrib/kustomize-gitops-example`
 
-If using an older version of kubectl, use:
-
-`kustomize build overlays/staging | kubectl apply -f`
-
-`kustomize build overlays/production | kubectl apply -f`
-
-## Deploy with Codefresh
-
-There are two YAML files procided, `staging-codrefresh.yml` and `prod-codefresh.yml` for easy usage with the Codefresh CI/CD platform.  For more information, see the [Codefresh documentation](https://codefresh.io/docs/docs/yaml-examples/examples/deploy-with-kustomize/).
+After you create a cluster and have access to it, this application's structure includes:
