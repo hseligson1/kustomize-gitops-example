@@ -132,3 +132,76 @@ Now, that you've deployed your app with Kustomize, let's review how to do the sa
 Assuming you've installed and configured ArgoCD already, now you can log into ArgoCD and access the UI.
 
 Navigate to the +NEW APP on the left-hand side of the UI. Then add the following to create the application:
+
+#### General Section:
+
+- Application Name – This is the application name inside ArgoCD. Enter "kustomize-gitops-example"
+
+- Project – This is the project name inside ArgoCD. Since this is a new setup for ArgoCD, a default project is created for us and we’ll select the same.
+
+- Sync Policy – You can choose to auto synchronize the state of application in the Kubernetes with the GitHub repository. Choose "Enable".
+
+![Argo App General Section](argocd-create-ui.png)
+
+#### Source Section:
+
+- Repository URL – Provide the url for the GitHub repository containing the application manifests. This is the HTTPS URL for this project.
+
+- Revision – You can choose to provide the specific branch or tag for github repo and sync the same state with Kubernetes details. We’ll choose, "main".
+
+- Path – This helps in further segregating application manifests inside the GitHub repository. Select, "base".
+
+![Argo App Source Section](argocd-course-ui.png)
+
+#### Destination Section:
+
+- Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
+
+- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. We’ll leave it as "default" for now.
+
+![Argo App Destination Section](argocd-cluster-ui.png)
+
+#### Kustomize Section 
+
+ArgoCD will read the `kustomization.yaml` file in the path and will prompt you to override with different values. However, we’ll go with the default configuration committed in the github repo.
+
+![Argo App Kustomize Section](argocd-kustomize-ui.png)
+
+#### Synchronize: 
+
+Afterwards, it will read the parameters and the Kubernetes manifests. The application will be OutOfSync, because it hasn’t deployed yet and no Kubernetes resources are created. You can then SYNC the application using the default options. Once the manifests are applied, you can review the application health and resources you deployed.
+
+**Include image of healthy application**
+
+Once the manifest is applied, you can review the application health and the resources deployed. 
+
+Congrats, you've deployed an application with Kustomize and applied GitOps with ArgoCD.
+
+### Deploy with argocd CLI
+
+Assuming you're connected to your Kubernetes cluster and logged into ArgoCD, we can begin deploying the Kustomize application.
+
+First, create a namespace for the cluster:
+
+`kubectl create ns kustomize`
+
+Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create an ArgoCD app:
+
+
+`argocd app create <name of application> --repo <repo url> --revision kustomize --path <if you have a separate branch for your kustomize files> --dest-server <server url> --dest-namespace kustomize`
+
+Sync deployment managed by ArgoCD:
+
+`argocd app sync {APPLICATION NAME}`
+
+**include screenshot**
+
+Check status of deployment:
+
+`argocd app get {APPLICATION NAME}` 
+
+**include screenshot**
+
+As previously mentioned, Each time a new `kustomize.yaml`  file is added or modified, ArgoCD will detect those changes and update the deployments.
+
+
