@@ -124,14 +124,16 @@ or inspect the service with the `default` namespace:
 
 Fore more details, execute:
 
-`kubectl describe pods {pod_name}`
+`kubectl describe pods <pod name>`
 
 ## Deploy with Kustomize and ArgoCD
 
 Now, that you've deployed your app with Kustomize, let's review how to do the same with ArgoCD. 
 Assuming you've installed and configured ArgoCD already, now you can log into ArgoCD and access the UI.
 
-Navigate to the +NEW APP on the left-hand side of the UI. Then add the following to create the application:
+### Deploy with ArgoCD UI
+
+Navigate to the +NEW APP on the left-hand side of the UI. Then add the following to create the application.
 
 #### General Section:
 
@@ -151,7 +153,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Path – This helps in further segregating application manifests inside the GitHub repository. Select, "base".
 
-![Argo App Source Section](argocd-course-ui.png)
+![Argo App Source Section](argocd-source-ui.png)
 
 #### Destination Section:
 
@@ -188,17 +190,17 @@ First, create a namespace for the cluster:
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create an ArgoCD app:
 
 
-`argocd app create <name of application> --repo <repo url> --revision kustomize --path <if you have a separate branch for your kustomize files> --dest-server <server url> --dest-namespace kustomize`
+`argocd app create <application name> --repo <repo url> --revision <source branch> --path <folder containing kustomization> --dest-server <server url> --dest-namespace <namespace>`
 
 Sync deployment managed by ArgoCD:
 
-`argocd app sync {APPLICATION NAME}`
+`argocd app sync <application name>`
 
 **include screenshot**
 
 Check status of deployment:
 
-`argocd app get {APPLICATION NAME}` 
+`argocd app get <application name>` 
 
 **include screenshot**
 
