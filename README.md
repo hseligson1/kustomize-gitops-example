@@ -1,4 +1,3 @@
-![kustomize plus Codefresh](kustomize-and-codefresh.png)
 # Applied GitOps with ArgoCD and Kustomize
 
 This is a sample web application including a kustomization.yaml file, using Kustomize. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
