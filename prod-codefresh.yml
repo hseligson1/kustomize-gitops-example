@@ -26,6 +26,6 @@ steps:
     arguments:
       image: codefresh/kubectl:1.14.9
       commands:
-        - kubectl config use-context hannah-demo-cluster
+        - kubectl config use-context docker-desktop
         - kubectl apply -k overlays/production
 	
