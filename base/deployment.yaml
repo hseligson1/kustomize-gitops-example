@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: the-container
-        image: hseligson/kustomize-sample-app:0.1
+        image: hseligson/kustomize-sample-app
         ports:
         - containerPort: 8080
         env:
