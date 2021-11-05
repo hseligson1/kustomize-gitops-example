@@ -14,7 +14,7 @@ steps:
     type: git-clone
     stage: clone
     arguments:
-      repo: https://github.com/hseligson1/kustomize-gitops-example.git #will update this with the codefreshcontrib repo url#
+      repo: https://github.com/hseligson1/kustomize-gitops-example.git
       git: github
       revision: main
 
@@ -28,4 +28,3 @@ steps:
       commands:
         - kubectl config use-context docker-desktop
         - kubectl apply -k overlays/production
-	
