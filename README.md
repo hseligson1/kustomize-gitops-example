@@ -1,6 +1,6 @@
 # Applied GitOps with ArgoCD and Kustomize
 
-This is a sample web application including a kustomization.yaml file, using Kustomize. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
+This is a sample web application that includes both a base and overlays folder with a kustomization.yaml file and config-map.yaml file, to deploy in Staging and Production using Kustomize. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
 
 ## Prerequisites
 
@@ -10,11 +10,11 @@ This is a sample web application including a kustomization.yaml file, using Kust
 
 ## Deploy with Kustomize
 
-We will install and deploy this application using Kustomize. This kustomization.yaml file already exists within this application, so we don't need to create or add this YAML file. Start by cloning the repository to your local environment.
+We will install and deploy this application using only Kustomize. The kustomization.yaml file already exists within this application, so we don't need to create or add this YAML file. Start by cloning the repository to your local environment.
 
 `git clone https://github.com/codefresh-contrib/kustomize-gitops-example`
 
-After you create a cluster and have access to it, this application's structure includes:
+This application's structure includes:
 
 ```
 kustomize-gitops-example
