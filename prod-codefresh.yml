@@ -24,7 +24,7 @@ steps:
     stage: deploy
     working_directory: ${{clone}}
     arguments:
-      image: codefresh/kubectl:1.14.9
+      image: hseligson/kustomize-sample-app:v1.0.1
       commands:
         - kubectl config use-context docker-desktop
         - kubectl apply -k overlays/production
