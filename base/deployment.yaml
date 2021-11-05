@@ -13,9 +13,10 @@ spec:
     spec:
       containers:
       - name: the-container
-        image: hseligson/kustomize-sample-app:latest
+        image: hseligson/kustomize-sample-app
         ports:
         - containerPort: 8080
+        imagePullPolicy: Always
         env:
         - name: MY_MYSQL_DB
           valueFrom:
