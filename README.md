@@ -236,4 +236,4 @@ The response will return the application history, including an ID, date, and bra
 
 `argocd app history <application name> <application history id>` 
 
-As previously mentioned, Each time a new `kustomize.yaml` file is added or modified, ArgoCD will detect those changes and update the deployments.
+As previously mentioned, each time a new `kustomize.yaml` file is added or modified, ArgoCD will detect those changes and update the deployments.
