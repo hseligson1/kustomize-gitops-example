@@ -118,7 +118,7 @@ configmap/staging-the-map configured
 service/staging-demo configured
 deployment.apps/staging-the-deployment configured
 ```
-To inspect the deployment and whether it's READY, you can execute the command:
+To inspect the deployment and confirm whether or not it's READY, you can execute the command:
 
 `kubectl get deployment staging-the-deployment`
 
@@ -126,11 +126,11 @@ or
 
 `kubectl get deployment production-the-deployment`
 
-or inspect the service with the by the namespace:
+or inspect the service by the namespace:
 
 `kubectl get pods --namespace <application ns>`
 
-Fore more details, execute:
+Fore more details, you can also execute:
 
 `kubectl describe pods <pod name>`
 
