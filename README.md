@@ -143,7 +143,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Sync Policy – You can choose to auto synchronize the state of application in the Kubernetes with the GitHub repository. Choose "Enable".
 
-![Argo App General Section](argocd-create-ui.png)
+![Argo App General Section](argocd-create-ui-staging.png)
 
 #### Source Section:
 
@@ -154,7 +154,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 - Path – This helps in further segregating application manifests inside the GitHub repository. Select the overlays folder based on environment, "overlays/staging". 
 - Note: You can do this for the production environment by repeating these steps and creating another new ArgoCD application. You would simply select "overlays/production" for the path.
 
-![Argo App Source Section](argocd-source-ui.png)
+![Argo App Source Section](argocd-source-ui-staging.png)
 
 #### Destination Section:
 
@@ -168,7 +168,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 ArgoCD will read the `kustomization.yaml` file in the path and will prompt you to override with different values. However, we’ll go with the default configuration committed in the github repo.
 
-![Argo App Kustomize Section](argocd-kustomize-ui.png)
+![Argo App Kustomize Section](argocd-kustomize-ui-staging.png)
 
 #### Synchronize: 
 
@@ -176,34 +176,64 @@ Afterwards, it will read the parameters and the Kubernetes manifests. The applic
 
 **Include image of healthy application**
 
-Once the manifest is applied, you can review the application health and the resources deployed. 
+Once the manifest is applied, you can review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
+
+![Argo App Deployment](argocd-deployment-staging.png)
+
+- Note: within this demo we walked you through how to create an ArgoCD application for your Kustomize project for a staging environment. You can repeat this process for other environments like development, production, testing, etc.
+
+![Argo App Deployment](argocd-deployed-apps.png)
+
+If you need to rollback or view your history for an application due to any errors or issues, you can do so by click on the HISTORY/ROLLBACK button within the UI to view the deployment history. Included is also a revision ID that will link you directly to the Git repo commit. 
+
+![Argo App History](argocd-app-history-ui.png)
 
 Congrats, you've deployed an application with Kustomize and applied GitOps with ArgoCD.
 
 ### Deploy with argocd CLI
 
-Assuming you're connected to your Kubernetes cluster and logged into ArgoCD, we can begin deploying the Kustomize application.
+Assuming you're connected to your Kubernetes cluster and logged into the argocd CLI, we can begin deploying the Kustomize application.
 
-First, create a namespace for the cluster:
+First, to login to the CLI:
+
+`argocd login localhost:8080 --username admin --password <same password used in argocd ui>`
+
+This will return a response that lists your ArgoCD applications. You should see the app we created within the UI, "kustomize-gitops-example-staging".
+
+![ArgoCD CLI App List](argocd-cli-app-list.png)
+
+Otherwise you can create an ArgoCD application through the argocd CLI. To do this you can create a namespace for the cluster:
 
 `kubectl create ns kustomize`
 
-Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create an ArgoCD app:
+Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create the ArgoCD app:
 
-`argocd app create <application name> --repo <repo url> --revision <source branch> --path <folder containing kustomization file for specific environment> --dest-server <server url> --dest-namespace <namespace>`
+`argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace kustomize`
 
-Sync deployment managed by ArgoCD:
+This will return a resonse, "application 'kustomize-demo-staging-app' created". Next, sync the deployment managed by ArgoCD:
 
 `argocd app sync <application name>`
 
-**include screenshot**
+This will return a response that allows you to view the application you created and whether or not you were able to synchronize or not.
+
+![ArgoCD CLI Sync App](argocd-cli-sync-app.png)
 
 Check status of deployment:
 
 `argocd app get <application name>` 
 
-**include screenshot**
+![ArgoCD CLI Get App](argocd-cli-get-app.png)
 
-As previously mentioned, Each time a new `kustomize.yaml`  file is added or modified, ArgoCD will detect those changes and update the deployments.
+### ArgoCD Application History
 
+In case you need to rollback the ArgoCD application, you can do so by rolling back the application to a previously deployed version by the History ID. First, you need access to the application deployment history:
 
+`argocd app history <application name>`
+
+![ArgoCD CLI App History](argocd-cli-app-history.png)
+
+The response will return the application history, including an ID, date, and branch that any revision was made on the application. You can then use the ID to rollback the application to a specific deployed version:
+
+`argocd app history <application name> <application history id>` 
+
+As previously mentioned, Each time a new `kustomize.yaml` file is added or modified, ArgoCD will detect those changes and update the deployments.
