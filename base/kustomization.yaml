@@ -4,6 +4,7 @@ commonLabels:
 namespace: kustomize-namespace
 
 resources:
+- ns.yaml
 - deployment.yaml
 - service.yaml
 - configMap.yaml

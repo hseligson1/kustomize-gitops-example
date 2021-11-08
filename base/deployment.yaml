@@ -18,6 +18,8 @@ spec:
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
+        resources: {}
+status: {}
         env:
         - name: MY_MYSQL_DB
           valueFrom:
