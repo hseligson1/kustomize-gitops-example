@@ -23,7 +23,6 @@ kustomize-gitops-example
 │   ├── configMap.yaml
 │   ├── deployment.yaml
 │   ├── kustomization.yaml
-│   ├── namespace.yaml
 │   └── service.yaml
 └── overlays
     ├── production
@@ -118,7 +117,6 @@ This returns a response informing you if either environment contains the changes
 configmap/staging-the-map configured
 service/staging-demo configured
 deployment.apps/staging-the-deployment configured
-
 ```
 To inspect the deployment and whether it's READY, you can execute the command:
 
