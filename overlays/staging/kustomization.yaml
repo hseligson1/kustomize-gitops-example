@@ -1,9 +1,6 @@
 namePrefix: staging-
 commonLabels:
   variant: staging
-
-namespace: kustomize-namespace-staging
-
 bases:
 - ../../base
 patchesStrategicMerge:
