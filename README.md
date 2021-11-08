@@ -23,6 +23,7 @@ kustomize-gitops-example
 │   ├── configMap.yaml
 │   ├── deployment.yaml
 │   ├── kustomization.yaml
+│   ├── namespace.yaml
 │   └── service.yaml
 └── overlays
     ├── production
@@ -33,11 +34,6 @@ kustomize-gitops-example
         ├── config-map.yaml
         └── kustomization.yaml
 ```
-First, create a namespace for the overlays environment you want to deploy. It's important that the environments do not share the same service, should someone uninstall an environment, this would also uninstall other linked environments to that service. So, each environment will use a different service and you can even add a new `service.yaml` file to each overlays environment if you'd like. 
-
-We'll create a new namespace for the staging environment:
-
-`kubectl create ns kustomize-staging`
 
 Next, configure the cluster with overlays using this command:
 
