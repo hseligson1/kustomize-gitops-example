@@ -133,7 +133,7 @@ Assuming you've installed and configured ArgoCD already, now you can log into Ar
 
 ### Deploy with ArgoCD UI
 
-Navigate to the +NEW APP on the left-hand side of the UI. Then add the following to create the application.
+Navigate to the +NEW APP on the left-hand side of the UI. Then add the following below to create the application.
 
 #### General Section:
 
@@ -149,9 +149,10 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Repository URL – Provide the url for the GitHub repository containing the application manifests. This is the HTTPS URL for this project.
 
-- Revision – You can choose to provide the specific branch or tag for github repo and sync the same state with Kubernetes details. We’ll choose, "main".
+- Revision – You can choose to provide the specific branch or tag for github repo and sync the same state with Kubernetes details. We’ll choose, "main" or you can keep the default, "HEAD".
 
-- Path – This helps in further segregating application manifests inside the GitHub repository. Select, "base".
+- Path – This helps in further segregating application manifests inside the GitHub repository. Select the overlays folder based on environment, "overlays/staging". 
+- Note: You can do this for the production environment by repeating these steps and creating another new ArgoCD application. You would simply select "overlays/production" for the path.
 
 ![Argo App Source Section](argocd-source-ui.png)
 
@@ -189,8 +190,7 @@ First, create a namespace for the cluster:
 
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create an ArgoCD app:
 
-
-`argocd app create <application name> --repo <repo url> --revision <source branch> --path <folder containing kustomization> --dest-server <server url> --dest-namespace <namespace>`
+`argocd app create <application name> --repo <repo url> --revision <source branch> --path <folder containing kustomization file for specific environment> --dest-server <server url> --dest-namespace <namespace>`
 
 Sync deployment managed by ArgoCD:
 
