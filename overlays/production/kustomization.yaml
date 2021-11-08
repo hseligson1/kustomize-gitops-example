@@ -1,6 +1,9 @@
 namePrefix: production-
 commonLabels:
   variant: production
+
+namespace: kustomize-namespace-production
+
 bases:
 - ../../base
 patchesStrategicMerge:
