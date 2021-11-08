@@ -126,9 +126,9 @@ or
 
 `kubectl get deployment production-the-deployment`
 
-or inspect the service with the `default` namespace:
+or inspect the service with the by the namespace:
 
-`kubectl get pods --namespace kustomize-staging`
+`kubectl get pods --namespace <application ns>`
 
 Fore more details, execute:
 
@@ -168,7 +168,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
 
-- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. We’ll leave it as "default" for now.
+- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. We’ll leave it as "default" for now, but we should note it's best practice to create custome namespaces for each environment.
 
 ![Argo App Destination Section](argocd-cluster-ui.png)
 
@@ -212,11 +212,11 @@ This will return a response that lists your ArgoCD applications. You should see 
 
 Otherwise you can create an ArgoCD application through the argocd CLI. To do this you can create a namespace for the cluster:
 
-`kubectl create ns kustomize`
+`kubectl create ns kustomize-staging`
 
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create the ArgoCD app:
 
-`argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace kustomize`
+`argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace kustomize-staging`
 
 This will return a resonse, "application 'kustomize-demo-staging-app' created". Next, sync the deployment managed by ArgoCD:
 
