@@ -10,9 +10,9 @@ This is a sample web application that includes both a base and overlays folder w
 
 ## Deploy with Kustomize
 
-We will install and deploy this application using only Kustomize. The kustomization.yaml file already exists within this application, so we don't need to create or add this YAML file. Start by cloning the repository to your local environment.
+We will install and deploy this application using only Kustomize. The `kustomization.yaml` file already exists within this application, so we don't need to create or add this YAML file. Start by cloning the repository to your local environment.
 
-`git clone https://github.com/codefresh-contrib/kustomize-gitops-example`
+`git clone https://github.com/hseligson1/kustomize-gitops-example.git`
 
 This application's structure includes:
 
@@ -33,11 +33,19 @@ kustomize-gitops-example
         ├── config-map.yaml
         └── kustomization.yaml
 ```
-Then, configure the cluster with overlays using this command:
+First, create a namespace for the overlays environment you want to deploy. It's important that the environments do not share the same service, should someone uninstall an environment, this would also uninstall other linked environments to that service. So, each environment will use a different service and you can even add a new `service.yaml` file to each overlays environment if you'd like. 
 
-`kustomize build overlays/staging`
+We'll create a new namespace for the staging environment:
 
-`kustomize build overlays/production`
+`kubectl create ns kustomize-staging`
+
+Next, configure the cluster with overlays using this command:
+
+`kustomize build kustomize-gitops-example/overlays/staging`
+
+or
+
+`kustomize build kustomize-gitops-example/overlays/production`
 
 This allows you to review the data for both environments. You should see an output similar to this staging overlay response:
 
@@ -65,7 +73,7 @@ spec:
   selector:
     app: demo
     variant: staging
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -95,32 +103,38 @@ spec:
             configMapKeyRef:
               key: mysqlDB
               name: staging-the-map
-        image: hseligson/kustomize-sample-app:latest
+        image: hseligson/kustomize-sample-app:v1.0.1
+        imagePullPolicy: Always
         name: the-container
         ports:
         - containerPort: 8080
 ```
 Once you've reviewed the overlays, then you can apply any changes to the cluster and deploy with a `kubectl` command:
 
-`kubectl apply -k overlays/staging`
+`kubectl apply -k kustomize-gitops-example/overlays/staging`
 
-`kubectl apply -k overlays/production`
+or
+
+`kubectl apply -k kustomize-gitops-example/overlays/production`
 
 This returns a response informing you if either environment contains the changes and is deployed. Here's the staging environment example: 
 ```
-configmap/staging-the-map unchanged
-service/staging-demo unchanged
+configmap/staging-the-map configured
+service/staging-demo configured
 deployment.apps/staging-the-deployment configured
+
 ```
 To inspect the deployment and whether it's READY, you can execute the command:
 
 `kubectl get deployment staging-the-deployment`
 
+or
+
 `kubectl get deployment production-the-deployment`
 
 or inspect the service with the `default` namespace:
 
-`kubectl get pods --namespace default`
+`kubectl get pods --namespace kustomize-staging`
 
 Fore more details, execute:
 
