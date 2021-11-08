@@ -4,7 +4,3 @@ metadata:
   name: the-deployment
 spec:
   replicas: 3
-   template:
-    containers:
-      - name: the-container
-        image: registry/conatiner:latest

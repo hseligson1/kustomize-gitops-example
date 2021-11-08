@@ -4,6 +4,4 @@ commonLabels:
 bases:
 - ../../base
 patchesStrategicMerge:
-- ns.yaml
-- deployment.yaml
 - config-map.yaml
