@@ -1,6 +1,6 @@
 # Applied GitOps with ArgoCD and Kustomize
 
-This is a sample web application that includes both a base and overlays folder with a `kustomization.yaml` file and `config-map.yaml` file, to deploy in Staging and Production environments. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD.
+This is a sample web application that includes both a base and overlays folder with a `kustomization.yaml` file and `config-map.yaml` file, to deploy in Staging and Production environments. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD to a specific environment.
 
 ## Prerequisites
 
