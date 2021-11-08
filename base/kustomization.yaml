@@ -1,6 +1,8 @@
 commonLabels:
   app: demo
 
+namespace: kustomize-namespace
+
 resources:
 - deployment.yaml
 - service.yaml

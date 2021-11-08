@@ -2,5 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: the-deployment
+  namespace: the-namespace
 spec:
   replicas: 3
+   template:
+    containers:
+      - name: the-container
+        image: registry/conatiner:latest
