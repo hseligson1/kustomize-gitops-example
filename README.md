@@ -104,7 +104,15 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Once you've reviewed the overlays, then you can apply any changes to the cluster and deploy with a `kubectl` command:
+Once you've reviewed the overlays, create a new namespace for the staging environment with a `kubectl` command: 
+
+`kubectl create namespace kustomize-staging`
+
+Make sure you're on the namespace:
+
+`kubectl config set-context --current --namespace=kustomize-staging`
+
+Then, apply any changes to the cluster and deploy with a `kubectl` command:
 
 `kubectl apply -k kustomize-gitops-example/overlays/staging`
 
@@ -114,9 +122,9 @@ or
 
 This returns a response informing you if either environment contains the changes and is deployed. Here's the staging environment example: 
 ```
-configmap/staging-the-map configured
-service/staging-demo configured
-deployment.apps/staging-the-deployment configured
+configmap/staging-the-map created
+service/staging-demo created
+deployment.apps/staging-the-deployment created
 ```
 To inspect the deployment and confirm whether or not it's READY, you can execute the command:
 
@@ -128,7 +136,7 @@ or
 
 or inspect the service by the namespace:
 
-`kubectl get pods --namespace <application ns>`
+`kubectl get pods -n kustomize-staging`
 
 Fore more details, you can also execute:
 
