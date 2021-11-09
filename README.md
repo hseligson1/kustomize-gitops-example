@@ -108,6 +108,10 @@ Once you've reviewed the overlays, create a new namespace for the staging enviro
 
 `kubectl create namespace kustomize-staging`
 
+and
+
+`kubectl create namespace kustomize-prod`
+
 Make sure you're on the namespace:
 
 `kubectl config set-context --current --namespace=kustomize-staging`
@@ -176,9 +180,9 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
 
-- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. We’ll leave it as "default" for now, but we should note it's best practice to create custome namespaces for each environment.
+- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each environment.
 
-![Argo App Destination Section](argocd-cluster-ui.png)
+![Argo App Destination Section](argocd-ns-ui.png)
 
 #### Kustomize Section 
 
@@ -194,11 +198,11 @@ Afterwards, it will read the parameters and the Kubernetes manifests. The applic
 
 Once the manifest is applied, you can review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
 
-![Argo App Deployment](argocd-deployment-staging.png)
+![Argo App Deployment](argocd-deploy-staging-ui.png)
 
 - Note: within this demo we walked you through how to create an ArgoCD application for your Kustomize project for a staging environment. You can repeat this process for other environments like development, production, testing, etc.
 
-![Argo App Deployment](argocd-deployed-apps.png)
+![Argo App Deployment](argocd-cluster-ns-ui.png)
 
 If you need to rollback or view your history for an application due to any errors or issues, you can do so by click on the HISTORY/ROLLBACK button within the UI to view the deployment history. Included is also a revision ID that will link you directly to the Git repo commit. 
 
