@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: the-map
 data:
-  mysqlDB: "staging-mysql.example.com:3306"
+  altGreeting: "Now we're in staging 😏"
+  enableRisky: "true" # italics! really risky!
