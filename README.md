@@ -104,7 +104,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Once you've reviewed the overlays, create a new namespace for the staging environment with a `kubectl` command: 
+Once you've reviewed the overlays, create a new namespace for the environment's to work within, with a `kubectl` command: 
 
 `kubectl create namespace kustomize-staging`
 
@@ -112,7 +112,7 @@ and
 
 `kubectl create namespace kustomize-prod`
 
-Make sure you're on the namespace:
+Make sure you're on the namespace you created for the environment you want to deploy:
 
 `kubectl config set-context --current --namespace=kustomize-staging`
 
@@ -180,7 +180,8 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
 
-- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. Also, you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each environment.
+- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. 
+Note: you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each environment.
 
 ![Argo App Destination Section](argocd-ns-ui.png)
 
