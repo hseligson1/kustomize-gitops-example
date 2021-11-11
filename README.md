@@ -1,6 +1,6 @@
 # Applied GitOps with ArgoCD and Kustomize
 
-This is a sample web application that includes both a base and overlays folder with a `kustomization.yaml` file and `config-map.yaml` file, to deploy in Staging and Production environments. We'll explain 2 ways to deploy this application using both Kustomize and ArgoCD to a specific environment.
+This is a sample web application that includes both a base and overlays folder with both a Staging and Production environment. We'll explain 2 ways to deploy this application using only Kustomize and Kustomize with ArgoCD.
 
 ## Prerequisites
 
@@ -104,7 +104,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Once you've reviewed the overlays, create a new namespace for the environment's to work within, with a `kubectl` command: 
+Once you've reviewed the overlays, create a new namespace for the environment's to work within. This can be executed with a `kubectl` command: 
 
 `kubectl create namespace kustomize-staging`
 
@@ -140,7 +140,7 @@ or
 
 or inspect the service by the namespace:
 
-`kubectl get pods -n kustomize-staging`
+`kubectl get pods -n kustomize-staging` or `kubectl get pods -n kustomize-prod` depending on the environment
 
 Fore more details, you can also execute:
 
@@ -180,8 +180,8 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
 
-- Namespace – This can be used to select namespace where manifests will be deployed. You can choose a custom namespace and provide the same. 
-Note: you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each environment.
+- Namespace – This can be used to select namespace where manifests will be deployed. 
+Note: you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each cluster/environment.
 
 ![Argo App Destination Section](argocd-ns-ui.png)
 
