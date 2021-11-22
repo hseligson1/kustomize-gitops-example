@@ -161,7 +161,6 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 - Revision – You can choose to provide the specific branch or tag for github repo and sync the same state with Kubernetes details. We’ll choose, "main" or you can keep the default, "HEAD".
 
 - Path – This helps in further segregating application manifests inside the GitHub repository. Select the overlays folder based on environment, "overlays/staging". 
-- Note: You can do this for the production environment by repeating these steps and creating another new ArgoCD application. You would simply select "overlays/production" for the path.
 
 ![Argo App Source Section](argocd-source-ui-staging.png)
 
@@ -169,8 +168,7 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 
 - Cluster URL – ArgoCD can be used to connect and deploy application to multiple Kubernetes clusters. Choose the default in-cluster (where Argo CD itself is deployed).
 
-- Namespace – This can be used to select namespace where manifests will be deployed. 
-Note: you’ll need to create the namespace on the target Kubernetes cluster before you can deploy manifests to it. Add "kustomize-staging" or "kustomize-prod" if you created a namespace prior within this tutorial. It's best practice to create custom namespaces for each cluster/environment.
+- Namespace – This can be used to select namespace where manifests will be deployed. You can submit one you've already created or you can use the custom namespace option ArgoCD provides.
 
 ![Argo App Destination Section](argocd-ns-ui.png)
 
