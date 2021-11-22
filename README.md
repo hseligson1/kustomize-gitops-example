@@ -199,7 +199,7 @@ If you need to rollback or view your history for an application due to any error
 
 Congrats, you've deployed an application with Kustomize and applied GitOps with ArgoCD.
 
-###
+***
 
 ### Deploy with argocd CLI
 
