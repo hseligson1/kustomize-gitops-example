@@ -199,11 +199,14 @@ If you need to rollback or view your history for an application due to any error
 
 Congrats, you've deployed an application with Kustomize and applied GitOps with ArgoCD.
 
+###
+
 ### Deploy with argocd CLI
 
-Assuming you're connected to your Kubernetes cluster and logged into the argocd CLI, we can begin deploying the Kustomize application.
+Now, that you've successfully deployed a Kustomize project within the ArgoCD UI. Let's do it again with the argocd CLI.
+Assuming you're connected to your Kubernetes cluster you need to now log into the argocd CLI.
 
-First, to login to the CLI:
+To login to the CLI, execute the following in your terminal:
 
 `argocd login localhost:8080 --username admin --password <same password used in argocd ui>`
 
@@ -215,19 +218,19 @@ Next, execute the following:
 
 This will return a response that lists your ArgoCD applications. You should see the app we created within the UI, "kustomize-gitops-example-staging".
 
-![ArgoCD CLI App List](argocd-cli-app-list.png)
+![ArgoCD CLI Create and List App](argocd-cli-app-list.png)
 
 If this is the case, then delete the app you previously created wuith the command:
 
 `argocd app delete <argocd application name>`
 
-Now, you can create an ArgoCD application through the argocd CLI. To do this you can create a namespace for the cluster:
-
-`kubectl create ns staging`
+![ArgoCD CLI Delete App](argocd-cli-delete-app.png)
 
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create the ArgoCD app:
 
 `argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace staging`
+
+![ArgoCD CLI Create App](argocd-cli-create-app.png)
 
 This will return a resonse, "application '<application name>' created". Next, sync the deployment managed by ArgoCD:
 
