@@ -137,11 +137,12 @@ Congrats, you've deployed an application only using Kustomize and `kubectl`.
 ## Deploy with Kustomize and ArgoCD
 
 Now, that you've deployed your app with Kustomize, let's review how to do the same with ArgoCD. 
-Assuming you've installed and configured ArgoCD already, now you can log into ArgoCD and access the UI.
+We'll explain how to deploy with both the ArgoCD UI and the argocd CLI.
 
 ### Deploy with ArgoCD UI
 
-Navigate to the +NEW APP on the left-hand side of the UI. Then add the following below to create the application.
+Assuming you've installed and configured ArgoCD already, now you can log into ArgoCD and access the UI.
+Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the following below to create the application.
 
 #### General Section:
 
@@ -149,7 +150,7 @@ Navigate to the +NEW APP on the left-hand side of the UI. Then add the following
 
 - Project – This is the project name inside ArgoCD. Since this is a new setup for ArgoCD, a default project is created for us and we’ll select the same.
 
-- Sync Policy – You can choose to auto synchronize the state of application in the Kubernetes with the GitHub repository. Choose "Enable".
+- Sync Policy – You can choose to auto synchronize the state of application in the Kubernetes with the GitHub repository. Choose "Automatic".
 
 ![Argo App General Section](argocd-create-ui-staging.png)
 
