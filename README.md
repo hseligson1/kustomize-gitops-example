@@ -104,7 +104,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Let's say you make a minor change within the overlays - in order to apply those changes to the cluster you can execute this command or simply go-ahead and deploy with the `kubectl` command:
+Whenever you make a change within the overlays directories you can apply those changes to the cluster by executing the same command for the deployment:
 
 `kubectl apply -k kustomize-gitops-example/overlays/staging`
 
