@@ -130,6 +130,10 @@ Fore more details, you can also execute:
 
 `kubectl describe pods <pod name>`
 
+Congrats, you've deployed an application only using Kustomize and `kubectl`.
+
+***
+
 ## Deploy with Kustomize and ArgoCD
 
 Now, that you've deployed your app with Kustomize, let's review how to do the same with ArgoCD. 
@@ -177,11 +181,11 @@ ArgoCD will read the `kustomization.yaml` file in the path and will prompt you t
 
 #### Synchronize: 
 
-Afterwards, it will read the parameters and the Kubernetes manifests. The application will be OutOfSync, because it hasn’t deployed yet and no Kubernetes resources are created. You can then SYNC the application using the default options. Once the manifests are applied, you can review the application health and resources you deployed.
+Afterwards, it will read the parameters and the Kubernetes manifests and auto-sync, since you enabled this function when creating your ArgoCD app. Once the manifests are applied, you can review the application health and resources you deployed.
 
 **Include image of healthy application**
 
-Once the manifest is applied, you can review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
+You can now review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
 
 ![Argo App Deployment](argocd-deploy-staging-ui.png)
 
@@ -189,7 +193,7 @@ Once the manifest is applied, you can review the application health and the reso
 
 ![Argo App Deployment](argocd-cluster-ns-ui.png)
 
-If you need to rollback or view your history for an application due to any errors or issues, you can do so by click on the HISTORY/ROLLBACK button within the UI to view the deployment history. Included is also a revision ID that will link you directly to the Git repo commit. 
+If you need to rollback or view your history for an application due to any errors or issues, you can do so by click on the HISTORY/ROLLBACK button within the UI to view the deployment history. Included is also a revision ID that will link you directly to the Git repo commit that can be identified as the root cause of an error or issue that needs resolved. 
 
 ![Argo App History](argocd-app-history-ui.png)
 
@@ -203,19 +207,29 @@ First, to login to the CLI:
 
 `argocd login localhost:8080 --username admin --password <same password used in argocd ui>`
 
+You should be able to login using the same password you used when accessin the ArgoCD UI. 
+
+Next, execute the following:
+
+`argocd app list`
+
 This will return a response that lists your ArgoCD applications. You should see the app we created within the UI, "kustomize-gitops-example-staging".
 
 ![ArgoCD CLI App List](argocd-cli-app-list.png)
 
-Otherwise you can create an ArgoCD application through the argocd CLI. To do this you can create a namespace for the cluster:
+If this is the case, then delete the app you previously created wuith the command:
 
-`kubectl create ns kustomize-staging`
+`argocd app delete <argocd application name>`
+
+Now, you can create an ArgoCD application through the argocd CLI. To do this you can create a namespace for the cluster:
+
+`kubectl create ns staging`
 
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create the ArgoCD app:
 
-`argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace kustomize-staging`
+`argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace staging`
 
-This will return a resonse, "application 'kustomize-demo-staging-app' created". Next, sync the deployment managed by ArgoCD:
+This will return a resonse, "application '<application name>' created". Next, sync the deployment managed by ArgoCD:
 
 `argocd app sync <application name>`
 
@@ -241,4 +255,4 @@ The response will return the application history, including an ID, date, and bra
 
 `argocd app history <application name> <application history id>` 
 
-As previously mentioned, each time a new `kustomize.yaml` file is added or modified, ArgoCD will detect those changes and update the deployments.
+Congrats, you've created and deployed an Kustomize project with the argocd CLI. Now, each time a new `kustomize.yaml` file is added or modified, ArgoCD will detect those changes and update the deployments for your project. 
