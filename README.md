@@ -34,7 +34,7 @@ kustomize-gitops-example
         └── kustomization.yaml
 ```
 
-Next, configure the cluster with overlays using this command:
+Next, you can configure the cluster with overlays using this command:
 
 `kustomize build kustomize-gitops-example/overlays/staging`
 
@@ -42,7 +42,7 @@ or
 
 `kustomize build kustomize-gitops-example/overlays/production`
 
-This allows you to review the data for both environments. You should see an output similar to this staging overlay response:
+This allows you to review the data for both environments. You should see an output similar to this overlay response we executed for staging:
 
 ```
 apiVersion: v1
@@ -104,19 +104,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Once you've reviewed the overlays, create a new namespace for the environment's to work within. This can be executed with a `kubectl` command: 
-
-`kubectl create namespace kustomize-staging`
-
-and
-
-`kubectl create namespace kustomize-prod`
-
-Make sure you're on the namespace you created for the environment you want to deploy:
-
-`kubectl config set-context --current --namespace=kustomize-staging`
-
-Then, apply any changes to the cluster and deploy with a `kubectl` command:
+Let's say you make a minor change within the overlays - in order to apply those changes to the cluster you can execute this command or simply go-ahead and deploy with the `kubectl` command:
 
 `kubectl apply -k kustomize-gitops-example/overlays/staging`
 
@@ -137,10 +125,6 @@ To inspect the deployment and confirm whether or not it's READY, you can execute
 or
 
 `kubectl get deployment production-the-deployment`
-
-or inspect the service by the namespace:
-
-`kubectl get pods -n kustomize-staging` or `kubectl get pods -n kustomize-prod` depending on the environment
 
 Fore more details, you can also execute:
 
