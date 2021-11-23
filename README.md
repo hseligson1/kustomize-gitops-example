@@ -182,7 +182,7 @@ ArgoCD will read the `kustomization.yaml` file in the path and will prompt you t
 
 Afterwards, it will read the parameters and the Kubernetes manifests and auto-sync, since you enabled this function when creating your ArgoCD app. Once the manifests are applied, you can review the application health and resources you deployed.
 
-**Include image of healthy application**
+**Health Status**
 
 You can now review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
 
