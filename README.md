@@ -152,7 +152,7 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 
 - Sync Policy – You can choose to auto synchronize the state of application in the Kubernetes with the GitHub repository. Choose "Automatic".
 
-![Argo App General Section](argocd-create-ui-staging.png)
+![Argo App General Section](pictures/argocd-create-ui-staging.png)
 
 #### Source Section:
 
@@ -162,7 +162,7 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 
 - Path – This helps in further segregating application manifests inside the GitHub repository. Select the overlays folder based on environment, "overlays/staging". 
 
-![Argo App Source Section](argocd-source-ui-staging.png)
+![Argo App Source Section](pictures/argocd-source-ui-staging.png)
 
 #### Destination Section:
 
@@ -176,7 +176,7 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 
 ArgoCD will read the `kustomization.yaml` file in the path and will prompt you to override with different values. However, we’ll go with the default configuration committed in the github repo.
 
-![Argo App Kustomize Section](argocd-kustomize-ui-staging.png)
+![Argo App Kustomize Section](pictures/argocd-kustomize-ui-staging.png)
 
 #### Synchronize: 
 
@@ -186,15 +186,15 @@ Afterwards, it will read the parameters and the Kubernetes manifests and auto-sy
 
 You can now review the application health and the resources deployed. Below is an example of both environments: Staging and Production applications that are deployed and healhy.
 
-![Argo App Deployment](argocd-deploy-staging-ui.png)
+![Argo App Deployment](pictures/argocd-deploy-staging-ui.png)
 
 - Note: within this demo we walked you through how to create an ArgoCD application for your Kustomize project for a staging environment. You can repeat this process for other environments like development, production, testing, etc.
 
-![Argo App Deployment](argocd-cluster-ns-ui.png)
+![Argo App Deployment](pictures/argocd-cluster-ns-ui.png)
 
 If you need to rollback or view your history for an application due to any errors or issues, you can do so by click on the HISTORY/ROLLBACK button within the UI to view the deployment history. Included is also a revision ID that will link you directly to the Git repo commit that can be identified as the root cause of an error or issue that needs resolved. 
 
-![Argo App History](argocd-app-history-ui.png)
+![Argo App History](pictures/argocd-app-history-ui.png)
 
 Congrats, you've deployed an application with Kustomize and applied GitOps with ArgoCD.
 
@@ -217,19 +217,19 @@ Next, execute the following:
 
 This will return a response that lists your ArgoCD applications. You should see the app we created within the UI, "kustomize-gitops-example-staging".
 
-![ArgoCD CLI Create and List App](argocd-cli-app-list.png)
+![ArgoCD CLI Create and List App](pictures/argocd-cli-app-list.png)
 
 If this is the case, then delete the app you previously created wuith the command:
 
 `argocd app delete <argocd application name>`
 
-![ArgoCD CLI Delete App](argocd-cli-delete-app.png)
+![ArgoCD CLI Delete App](pictures/argocd-cli-delete-app.png)
 
 Next, deploy the `kustomization.yaml` file within the CLI and reference the Git repository to create the ArgoCD app:
 
 `argocd app create <application name> --repo https://github.com/hseligson1/kustomize-gitops-example.git --revision main --path overlays/staging  --dest-server https://kubernetes.default.svc --dest-namespace staging`
 
-![ArgoCD CLI Create App](argocd-cli-create-app.png)
+![ArgoCD CLI Create App](pictures/argocd-cli-create-app.png)
 
 This will return a resonse, "application '<application name>' created". Next, sync the deployment managed by ArgoCD:
 
@@ -237,13 +237,13 @@ This will return a resonse, "application '<application name>' created". Next, sy
 
 This will return a response that allows you to view the application you created and whether or not you were able to synchronize or not.
 
-![ArgoCD CLI Sync App](argocd-cli-sync-app.png)
+![ArgoCD CLI Sync App](pictures/argocd-cli-sync-app.png)
 
 Check status of deployment:
 
 `argocd app get <application name>` 
 
-![ArgoCD CLI Get App](argocd-cli-get-app.png)
+![ArgoCD CLI Get App](pictures/argocd-cli-get-app.png)
 
 ### ArgoCD Application History
 
@@ -251,7 +251,7 @@ In case you need to rollback the ArgoCD application, you can do so by rolling ba
 
 `argocd app history <application name>`
 
-![ArgoCD CLI App History](argocd-cli-app-history.png)
+![ArgoCD CLI App History](pictures/argocd-cli-app-history.png)
 
 The response will return the application history, including an ID, date, and branch that any revision was made on the application. You can then use the ID to rollback the application to a specific deployed version:
 
