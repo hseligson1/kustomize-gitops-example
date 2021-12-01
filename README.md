@@ -1,5 +1,6 @@
-# Applied GitOps with ArgoCD and Kustomize
 
+# Applied GitOps with ArgoCD and Kustomize
+![Argo GitOps with Argocd and Kustomize ](pictures/Applied_GitOps_Header.png)
 This is a sample web application that includes both a base and overlays folder with both a Staging and Production environment. We'll explain 2 ways to deploy this application using only Kustomize and Kustomize with ArgoCD.
 
 ## Prerequisites
