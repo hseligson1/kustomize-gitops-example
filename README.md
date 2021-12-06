@@ -171,7 +171,7 @@ Next, navigate to the +NEW APP on the left-hand side of the UI. Then add the fol
 
 - Namespace – This can be used to select namespace where manifests will be deployed. You can submit one you've already created or you can use the custom namespace option ArgoCD provides.
 
-![Argo App Destination Section](argocd-ns-ui.png)
+![Argo App Destination Section](pictures/argocd-ns-ui.png)
 
 #### Kustomize Section 
 
