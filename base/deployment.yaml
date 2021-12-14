@@ -10,6 +10,8 @@ spec:
     metadata:
       labels:
         deployment: demo
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - name: the-container
